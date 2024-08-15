@@ -23,3 +23,23 @@ def get_ip_info():
     except Exception as e:
         result_text.configure(text=str(e))
 ```
+
+- get_ip_info: This function retrieves the IP address entered by the user and sends a GET request to the ipinfo.io API.
+- url: Constructs the URL for the API request.
+- response: Stores the response from the API.
+- status_code: Checks if the request was successful (status code 200).
+- ip_data: Parses the JSON response to extract IP information.
+- result_text.configure: Updates the GUI with the retrieved IP information or an error message if the request fails.
+
+3. Configure the GUI Appearance
+```
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("dark-blue")
+```
+
+- set_appearance_mode: Sets the appearance of the GUI to dark mode.
+- set_default_color_theme: Sets the color theme to "dark-blue".
+
+
+This code creates a user application for looking up IP information. Users can input an IP address, click the "Lookup IP Info" button, and see detailed information about the IP address displayed in the application window. The application handles errors gracefully and provides feedback to the user if the lookup fails.  
+
