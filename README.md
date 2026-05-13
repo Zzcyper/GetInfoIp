@@ -1,45 +1,48 @@
-# Description of the IP Info Lookup Application
-The provided Python code creates a graphical user interface (UI) application using the customtkinter (ctk) library. The application allows users to enter an IP address and fetches information related to that IP address from the ipinfo.io service.
+# Description of the IP Geolocation Lookup Application
 
-1. Import Libraries
-- import customtkinter as ctk
-- import tkinter as tk
-- import requests
+**IP Geolocation Lookup** is a Python Flask web application that allows users to search for information about any valid IPv4 address. Unlike the older desktop version, this updated version runs in the browser and works on both PC and mobile devices.
 
-2. Define the Function to Get IP Information
+The application uses a modern dark-themed interface where users can enter an IP address or choose to automatically look up their own public IP address. After submitting a lookup request, the Flask backend contacts the `ipinfo.io` API and returns useful geolocation and network information.
 
-```
-def get_ip_info():
-    ip_address = entry.get()
-    try:
-        url = f"https://ipinfo.io/{ip_address}/json"
-        response = requests.get(url)
-        
-        if response.status_code == 200:
-            ip_data = response.json()
-            result_text.configure(text=f"IP Information:\n\nIP Address: {ip_data['ip']}\nHostname: {ip_data['hostname']}\nCity: {ip_data['city']}\nRegion: {ip_data['region']}\nCountry: {ip_data['country']}\nLocation: {ip_data['loc']}\nOrganization: {ip_data['org']}")
-        else:
-            result_text.configure(text=f"Failed to retrieve data. Status code: {response.status_code}")
-    except Exception as e:
-        result_text.configure(text=str(e))
-```
+The application displays details such as:
 
-- get_ip_info: This function retrieves the IP address entered by the user and sends a GET request to the ipinfo.io API.
-- url: Constructs the URL for the API request.
-- response: Stores the response from the API.
-- status_code: Checks if the request was successful (status code 200).
-- ip_data: Parses the JSON response to extract IP information.
-- result_text.configure: Updates the GUI with the retrieved IP information or an error message if the request fails.
+- IP address
+- City
+- Region
+- Country
+- Postal code
+- Coordinates
+- Timezone
+- Organization / ISP
+- Hostname
+- Google Maps location link
 
-3. Configure the GUI Appearance
-```
-ctk.set_appearance_mode("dark")
-ctk.set_default_color_theme("dark-blue")
-```
+## How It Works
 
-- set_appearance_mode: Sets the appearance of the GUI to dark mode.
-- set_default_color_theme: Sets the color theme to "dark-blue".
+The project uses Flask to serve both the frontend page and the backend lookup API.
 
+When the user enters an IP address and clicks the **Lookup** button, the browser sends a `POST` request to the `/api/lookup` route. The backend validates the IP address format before sending a request to `ipinfo.io`.
 
-This code creates a user application for looking up IP information. Users can input an IP address, click the "Lookup IP Info" button, and see detailed information about the IP address displayed in the application window. The application handles errors gracefully and provides feedback to the user if the lookup fails.  
+If the lookup is successful, the returned JSON data is displayed inside the web interface. If the IP address is invalid, the request times out, or the API fails, the application shows a clean error message instead of crashing.
 
+## Main Features
+
+- Flask-powered backend
+- Responsive HTML, CSS, and JavaScript frontend
+- Works on desktop and mobile
+- Lookup any valid IPv4 address
+- Option to use your own public IP address
+- IP format validation
+- Error handling for failed requests and timeouts
+- Google Maps integration for coordinates
+- Modern dark UI design
+
+## Technologies Used
+
+- Python
+- Flask
+- Requests
+- HTML
+- CSS
+- JavaScript
+- ipinfo.io API
